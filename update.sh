@@ -41,7 +41,7 @@ for DEPLOY in ${DEPLOYMENTS[@]}; do
     kubectl -n ${PLUGIN_NAMESPACE} set image deployment/${DEPLOY} \
       ${CONTAINER}=${PLUGIN_REPO}:${PLUGIN_TAG} --record
     if [[ ${PLUGIN_FORCE} == "true" ]]; then
-      kubectl -n ${PLUGIN_NAMESPACE} patch deployment ${DEPLOY} -p "{"spec":{"template":{"metadata":{"creationTimestamp":"date --utc '+%FT%TZ'"}}}}"
+      kubectl -n ${PLUGIN_NAMESPACE} patch deployment ${DEPLOY} -p "{\"spec\":{\"template\":{\"metadata\":{\"creationTimestamp\":\"`date +'%FT%TZ'`\"}}}}"
     fi
   done
 done
